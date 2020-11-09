@@ -33,11 +33,7 @@ class App extends React.Component {
       Clouds: "wi-day-fog"
     };
   }
-  // ggg(){
-  //   <div className="Style.cc"> 
-        
-  //   </div>
-  // }
+ 
   
   get_WeatherIcon(icons, rangeId) {
     // switch (true) {
