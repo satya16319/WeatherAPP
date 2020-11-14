@@ -12,4 +12,24 @@
     border: none;
     border-bottom: 2px solid tomato;
   }
+.gg {
+    background-color:white;
+    display: flex;
+    column-width: 0%;
+    background-color: tomato;
+    max-width: 0%;
+    max-height: 0%;
+    
+}
+
+.gf
+{
+    float: right;
+    margin-top: 0cm;
+}
+.hh
+{
+   float: left;
+   margin-top: 0cm;
+}
   

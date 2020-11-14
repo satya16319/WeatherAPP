@@ -3,6 +3,14 @@ import "./App.css";
 import Form from "./app_component/form.component";
 import Weather from "./app_component/weather.component";
 import "bootstrap/dist/css/bootstrap.min.css";
+import clear from './assets/sunny.png'
+import rain from './assets/rain.png'
+import snow from './assets/snow.jpeg'
+import clouds from './assets/clouds.jpeg'
+import drizzle from './assets/drizzle.jpg'
+import atmos from './assets/atmos.png'
+import thunderstorm from './assets/thunderstorm.jpg'
+
 // import Style from './VV.css';
 // import "weather-icons/css/weather-icons.css";
 
@@ -14,7 +22,7 @@ class App extends React.Component {
     this.state = {
       city: undefined,
       country: undefined,
-      icon: undefined,
+      icon: '',
       main: undefined,
       celsius: undefined,
       temp_max: null,
@@ -24,45 +32,47 @@ class App extends React.Component {
     };
 
     this.weatherIcon = {
-      Thunderstorm: "wi-thunderstorm",
-      Drizzle: "wi-sleet",
-      Rain: "wi-storm-showers",
-      Snow: "wi-snow",
-      Atmosphere: "wi-fog",
-      Clear: "wi-day-sunny",
-      Clouds: "wi-day-fog"
+      Thunderstorm: <img src={thunderstorm} alt='thunderstorm'/>,
+      Drizzle: <img src={drizzle} alt='drizzle'/>,
+      Rain: <img src={rain} alt='rain'/>,
+      Snow: <img src={snow} alt='snow'/>,
+      Atmosphere: <img src={atmos} alt='atmos'/>,
+      Clear:<img src={clear} alt='clear'/>,
+      Clouds: <img src={clouds} alt='clouds'/>
     };
   }
  
   
   get_WeatherIcon(icons, rangeId) {
-    // switch (true) {
-    //   case rangeId >= 200 && rangeId < 232:
-    //     this.setState({ icon: icons.Thunderstorm });
-    //     break;
-    //   case rangeId >= 300 && rangeId <= 321:
-    //     this.setState({ icon: icons.Drizzle });
-    //     break;
-    //   case rangeId >= 500 && rangeId <= 521:
-    //     this.setState({ icon: icons.Rain });
-    //     break;
-    //   case rangeId >= 600 && rangeId <= 622:
-    //     this.setState({ icon: icons.Snow });
+    this.setState({ icon: icons.download});
+     
+
+    switch (true) {
+      case rangeId >= 200 && rangeId < 232:
+        this.setState({ icon:icons.Thunderstorm});
+        break;
+      case rangeId >= 300 && rangeId <= 321:
+        this.setState({ icon: icons.Drizzle });
+        break;
+      case rangeId >= 500 && rangeId <= 521:
+        this.setState({ icon: icons.Rain });
+        break;
+      case rangeId >= 600 && rangeId <= 622:
+        this.setState({ icon: icons.Snow });
           
-    //     break;
-    //   case rangeId >= 701 && rangeId <= 781:
-    //     this.setState({ icon: icons.Atmosphere });
-    //        this.ggg('fff');
-    //     break;
-    //   case rangeId === 800:
-    //     this.setState({ icon: icons.Clear });
-    //     break;
-    //   case rangeId >= 801 && rangeId <= 804:
-    //     this.setState({ icon: icons.Clouds });
-    //     break;
-    //   default:
-    //     this.setState({ icon: icons.Clouds });
-    // }
+        break;
+      case rangeId >= 701 && rangeId <= 781:
+        this.setState({ icon: icons.Atmosphere });
+        break;
+      case rangeId === 800:
+        this.setState({ icon: icons.Clear });
+        break;
+      case rangeId >= 801 && rangeId <= 804:
+        this.setState({ icon: icons.Clouds });
+        break;
+      default:
+        this.setState({ icon: icons.Clouds });
+    }
   }
 
   calCelsius(temp) {
@@ -82,7 +92,7 @@ class App extends React.Component {
       );
 
       const response = await api_call.json();
-       if(response.name && response.sys.country)
+       if(response.name && response.sys.country[0]===country[0].toUpperCase())
        {
         console.log(response.name+ " "+response.sys.country);
 
@@ -115,6 +125,7 @@ class App extends React.Component {
   };
 
   render() {
+    // console.log(this.state.icon);
     return (
       <div className="App">  
         <Form loadweather={this.getWeather} error={this.state.error} />
